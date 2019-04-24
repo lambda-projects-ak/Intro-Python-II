@@ -1,5 +1,6 @@
 from room import Room
 from player import Player
+from item import Item
 
 # Declare all the rooms
 
@@ -24,24 +25,66 @@ earlier adventurers. The only exit is to the south."""),
 
 
 # Link rooms together
-
+# from outside, player can move north into foyer
 room['outside'].n_to = room['foyer']
+
+
+# from foyer, player can move south to outside, north to overlook, east to narrow
 room['foyer'].s_to = room['outside']
 room['foyer'].n_to = room['overlook']
 room['foyer'].e_to = room['narrow']
+
+# from overlook, player can move south to foyer
 room['overlook'].s_to = room['foyer']
+
 room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
+
 room['treasure'].s_to = room['narrow']
 
-#
-# Main
-#
+
+# Notes:
+# player moves north
+# player.current_room = current_room.{n}_to # dynamic based on input
+# player.current_room = room['foyer']
+
 
 # Make a new player object that is currently in the 'outside' room.
 player = Player("Alex", room['outside'])
-print(player.check_stats())
 
+print(player.current_room.name)
+print(player.current_room.n_to.name)
+
+if player.current_room.n_to is not None:
+    pass
+
+# generate items
+sword = Item("Sword", "Made of iron", 2)
+shield = Item("Shield", "Made of iron", 4)
+
+room['outside'].add_item(sword)
+# room['outside'].add_item(shield)
+
+
+print("------------------------- \n")
+# if player input == "status"
+player.check_stats()
+
+
+# if player input == "check room"
+player.check_for_items()
+
+# if player input == name of item in a room
+player.pickup("sword")
+# player.pickup("Shield")
+
+# if player input == "inventory"
+player.check_inventory()
+
+# if player input == "status"
+player.check_stats()
+
+print("-------------------------")
 # Write a loop that:
 #
 # * Prints the current room name
@@ -52,3 +95,10 @@ print(player.check_stats())
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+while True:
+    cmd = input("-> ")
+    print(cmd)
+    if cmd == "q":
+        print("Goodbye!")
+        break
