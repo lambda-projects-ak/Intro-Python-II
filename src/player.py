@@ -55,11 +55,29 @@ class Player:
             print("\n")
 
     def move_player(self, direction_input):
+        # possible_directions = self.current_room.get_possible_directions()
+
+        # for possible in possible_directions:
+
+        # self.current_room = self.current_room.{direction_input}_to
+
         if direction_input == "n":
-            self.current_room = self.current_room.n_to
+            if self.current_room.n_to == None:
+                print("You walked into a wall. \n")
+            else:
+                self.current_room = self.current_room.n_to
         elif direction_input == "e":
-            self.current_room = self.current_room.e_to
+            if self.current_room.e_to == None:
+                print("You walked into a wall. \n")
+            else:
+                self.current_room = self.current_room.e_to
         elif direction_input == "s":
-            self.current_room = self.current_room.s_to
+            if self.current_room.s_to == None:
+                print("You walked into a wall. \n")
+            else:
+                self.current_room = self.current_room.s_to
         elif direction_input == "w":
-            self.current_room = self.current_room.w_to
+            if self.current_room.w_to == None:
+                print("You walked into a wall. \n")
+            else:
+                self.current_room = self.current_room.w_to
