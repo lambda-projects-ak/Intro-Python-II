@@ -55,12 +55,6 @@ class Player:
             print("\n")
 
     def move_player(self, direction_input):
-        # possible_directions = self.current_room.get_possible_directions()
-
-        # for possible in possible_directions:
-
-        # self.current_room = self.current_room.{direction_input}_to
-
         if direction_input == "n":
             if self.current_room.n_to == None:
                 print("You walked into a wall. \n")

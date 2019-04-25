@@ -59,9 +59,17 @@ key = Item("Key", "Made of gold", 1)
 room['outside'].add_item(sword)
 room['outside'].add_item(shield)
 
-# Generate Key - needs to prevent key from spawning inside of treasure room
-random = random.choice(list(room.keys()))
-room[random].add_item(key)
+
+def generate_key_in_room():
+    randomRoom = random.choice(list(room.keys()))
+    # if random room == treasure, reroll
+    if randomRoom == "treasure":
+        generate_key_in_room()
+    # if room != treasure, assign it a key
+    room[randomRoom].add_item(key)
+
+
+generate_key_in_room()
 
 print("-- Adventure Game ---------------------------------- \n")
 print(f"Welcome {player.name} \n\n")
@@ -70,7 +78,19 @@ print(player.current_room)
 print("---------------------------------------------------- \n")
 print(player.current_room.get_possible_directions())
 print("[I] Check Inventory [C] Check Stats [R] Check Room  \n[P] Pickup Item  [D] Drop Item [Q] Quit Game")
+
 selection = input("-> ").upper()
+
+
+#
+# last mvp - user can enter multiple words, parser will perform correct action
+#
+
+
+def parser(selection):
+    selection.split(" ")
+    return selection
+
 
 os.system('cls' if os.name == 'nt' else 'clear')
 
