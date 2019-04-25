@@ -53,3 +53,13 @@ class Player:
                 print(
                     f"  Item: {item.name}, Description: {item.description} Weight: {item.weight}")
             print("\n")
+
+    def move_player(self, direction_input):
+        if direction_input == "n":
+            self.current_room = self.current_room.n_to
+        elif direction_input == "e":
+            self.current_room = self.current_room.e_to
+        elif direction_input == "s":
+            self.current_room = self.current_room.s_to
+        elif direction_input == "w":
+            self.current_room = self.current_room.w_to

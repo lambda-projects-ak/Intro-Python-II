@@ -26,16 +26,12 @@ earlier adventurers. The only exit is to the south."""),
 
 
 # Link rooms together
-# from outside, player can move north into foyer
 room['outside'].n_to = room['foyer']
 
-
-# from foyer, player can move south to outside, north to overlook, east to narrow
 room['foyer'].s_to = room['outside']
 room['foyer'].n_to = room['overlook']
 room['foyer'].e_to = room['narrow']
 
-# from overlook, player can move south to foyer
 room['overlook'].s_to = room['foyer']
 
 room['narrow'].w_to = room['foyer']
@@ -110,44 +106,68 @@ room['outside'].add_item(shield)
 
 print("-- Adventure Game ---------------------------------- \n")
 print(f"Welcome {player.name} \n\n")
-
+print(player.current_room)
 
 print("---------------------------------------------------- \n")
-print("[N] Move North  [W] Move West  [S] Move South  [E] Move East   [I] Check Inventory  \n[C] Check Room  [P] Pickup Item  [D] Drop Item  [Q] Quit Game")
+print(player.current_room.get_possible_directions())
+print("[I] Check Inventory [C] Check Stats [R] Check Room  \n[P] Pickup Item  [D] Drop Item [Q] Quit Game")
 selection = input("-> ").upper()
 
 os.system('cls' if os.name == 'nt' else 'clear')
 
 while not selection == "Q":
     print("-- Adventure Game ---------------------------------- \n")
+    print(player.current_room)
 
     # if player input == "s"
     if selection == "C":
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print("-- Adventure Game ---------------------------------- \n")
         player.check_stats()
 
     elif selection == "N":
-        pass
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print("-- Adventure Game ---------------------------------- \n")
+        player.move_player("n")
+        print(player.current_room)
 
     elif selection == "W":
-        pass
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print("-- Adventure Game ---------------------------------- \n")
+        player.move_player("w")
+        print(player.current_room)
 
     elif selection == "S":
-        pass
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print("-- Adventure Game ---------------------------------- \n")
+        player.move_player("s")
+        print(player.current_room)
 
     elif selection == "E":
-        pass
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print("-- Adventure Game ---------------------------------- \n")
+        player.move_player("e")
+        print(player.current_room)
 
     elif selection == "I":
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print("-- Adventure Game ---------------------------------- \n")
         player.check_inventory()
 
     elif selection == "P":
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print("-- Adventure Game ---------------------------------- \n")
         item_name = input("Pick up: ")
         player.pickup(item_name)
 
     elif selection == "R":
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print("-- Adventure Game ---------------------------------- \n")
         player.check_for_items()
 
     elif selection == "D":
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print("-- Adventure Game ---------------------------------- \n")
         item_name = input("Pick up: ")
         player.drop(item_name)
 
@@ -169,7 +189,8 @@ while not selection == "Q":
     # if player input == "status"
     # player2.check_stats()
     print("---------------------------------------------------- \n")
-    print("[N] Move North    [W] Move West    [S] Move South    [E] Move East    \n[I] Check Inventory    [S] Search Room    [P] Pickup Item    [D] Drop Item    [Q] Quit Game")
+    print(player.current_room.get_possible_directions())
+    print("[I] Check Inventory [C] Check Stats [R] Check Room  \n[P] Pickup Item  [D] Drop Item [Q] Quit Game")
     selection = input("-> ").upper()
     os.system('cls' if os.name == 'nt' else 'clear')
 
