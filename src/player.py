@@ -14,16 +14,19 @@ class Player:
         # if carry_weight exceeds carry_limit, prevent player movement
 
     def pickup(self, item_name):
+        x = 0
         if len(self.current_room.items) == 0:
             print("There are no items to pick up. \n")
         else:
-            for i in self.current_room.items:
-                if i.name == item_name.capitalize():
-                    self.inventory.append(i)
-                    self.carry_weight += i.weight
-                    print(f"You pick up {i.name} \n")
-                elif i.name != item_name.capitalize():
-                    print("The item you entered is not in this room. \n")
+            for item in self.current_room.items:
+                if item.name == item_name.capitalize():
+                    self.inventory.append(item)
+                    self.current_room.items.remove(item)
+                    self.carry_weight += item.weight
+                    print(f"You pick up {item.name} \n")
+                    x = 1
+            if x == 0:
+                print("The item you entered is not in this room. \n")
 
     def drop(self, item):
         # subtract item.weight from carry_weight
@@ -34,8 +37,8 @@ class Player:
             print("Your inventory is currently empty. \n")
         else:
             print("Player Inventory:")
-            for i in self.inventory:
-                print(f"  Item: {i.name}, Weight: {i.weight} \n")
+            for item in self.inventory:
+                print(f"  Item: {item.name}, Weight: {item.weight} \n")
 
     def check_stats(self):
         print(
@@ -46,7 +49,7 @@ class Player:
             print("You scan the room and see nothing. \n")
         else:
             print("You scan the room and see:")
-            for i in self.current_room.items:
+            for item in self.current_room.items:
                 print(
-                    f"  Item: {i.name}, Description: {i.description} Weight: {i.weight}")
+                    f"  Item: {item.name}, Description: {item.description} Weight: {item.weight}")
             print("\n")

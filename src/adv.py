@@ -1,6 +1,7 @@
 from room import Room
 from player import Player
 from item import Item
+import os
 
 # Declare all the rooms
 
@@ -42,49 +43,44 @@ room['narrow'].n_to = room['treasure']
 
 room['treasure'].s_to = room['narrow']
 
-
+'''
 # Notes:
 # player moves north
 # player.current_room = current_room.{n}_to # dynamic based on input
 # player.current_room = room['foyer']
 
+player2 = Player("Test Player", room['outside'])
 
-# Make a new player object that is currently in the 'outside' room.
-player = Player("Alex", room['outside'])
+print(player2.current_room.name)
+print(player2.current_room.n_to.name)
 
-print(player.current_room.name)
-print(player.current_room.n_to.name)
-
-if player.current_room.n_to is not None:
+if player2.current_room.n_to is not None:
     pass
 
-# generate items
-sword = Item("Sword", "Made of iron", 2)
-shield = Item("Shield", "Made of iron", 4)
 
-room['outside'].add_item(sword)
-# room['outside'].add_item(shield)
 
 
 print("------------------------- \n")
 # if player input == "status"
-player.check_stats()
+# player2.check_stats()
 
 
 # if player input == "check room"
-player.check_for_items()
+# player2.check_for_items()
 
 # if player input == name of item in a room
-player.pickup("sword")
-# player.pickup("Shield")
+player2.pickup("sword")
+player2.pickup("shield")
 
 # if player input == "inventory"
-player.check_inventory()
+# player2.check_inventory()
 
 # if player input == "status"
-player.check_stats()
+# player2.check_stats()
 
 print("-------------------------")
+'''
+
 # Write a loop that:
 #
 # * Prints the current room name
@@ -96,9 +92,87 @@ print("-------------------------")
 #
 # If the user enters "q", quit the game.
 
-while True:
-    cmd = input("-> ")
-    print(cmd)
-    if cmd == "q":
-        print("Goodbye!")
+os.system('cls' if os.name == 'nt' else 'clear')
+# Make a new player object that is currently in the 'outside' room.
+name = input("-> Enter your name: ")
+os.system('cls' if os.name == 'nt' else 'clear')
+
+# Generate player
+player = Player(name, room['outside'])
+
+# Generate items
+sword = Item("Sword", "Made of iron", 2)
+shield = Item("Shield", "Made of iron", 4)
+
+# Add items to room
+room['outside'].add_item(sword)
+room['outside'].add_item(shield)
+
+print("-- Adventure Game ---------------------------------- \n")
+print(f"Welcome {player.name} \n\n")
+
+
+print("---------------------------------------------------- \n")
+print("[N] Move North  [W] Move West  [S] Move South  [E] Move East   [I] Check Inventory  \n[C] Check Room  [P] Pickup Item  [D] Drop Item  [Q] Quit Game")
+selection = input("-> ").upper()
+
+os.system('cls' if os.name == 'nt' else 'clear')
+
+while not selection == "Q":
+    print("-- Adventure Game ---------------------------------- \n")
+
+    # if player input == "s"
+    if selection == "C":
+        player.check_stats()
+
+    elif selection == "N":
+        pass
+
+    elif selection == "W":
+        pass
+
+    elif selection == "S":
+        pass
+
+    elif selection == "E":
+        pass
+
+    elif selection == "I":
+        player.check_inventory()
+
+    elif selection == "P":
+        item_name = input("Pick up: ")
+        player.pickup(item_name)
+
+    elif selection == "R":
+        player.check_for_items()
+
+    elif selection == "D":
+        item_name = input("Pick up: ")
+        player.drop(item_name)
+
+    elif selection == "Q":
         break
+
+    else:
+        print(selection)
+    # if player input == "check room"
+    # player2.check_for_items()
+
+    # if player input == name of item in a room
+    # player2.pickup("sword")
+    # player2.pickup("shield")
+
+    # if player input == "inventory"
+    # player2.check_inventory()
+
+    # if player input == "status"
+    # player2.check_stats()
+    print("---------------------------------------------------- \n")
+    print("[N] Move North    [W] Move West    [S] Move South    [E] Move East    \n[I] Check Inventory    [S] Search Room    [P] Pickup Item    [D] Drop Item    [Q] Quit Game")
+    selection = input("-> ").upper()
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+# if cmd == "q":
+#     print("Goodbye!")
+#     break
