@@ -43,7 +43,7 @@ class Player:
                         print(f"You dropped {item.name} \n")
                         z = 1
             if z == 0:
-                print("The item you entered is not in this room. \n")
+                print("The item you entered is not your bag. \n")
 
     def check_inventory(self):
         if len(self.inventory) == 0:

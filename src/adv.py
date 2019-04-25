@@ -148,7 +148,9 @@ while not selection == "Q":
 
         if "drop" in action_input:
             player.drop(action_input)
-        if ("pickup" or "take") in action_input:
+        if "pickup" in action_input:
+            player.pickup(action_input)
+        if "take" in action_input:
             player.pickup(action_input)
 
     elif selection == "Q":
