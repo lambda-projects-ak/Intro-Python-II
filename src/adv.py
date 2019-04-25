@@ -71,25 +71,25 @@ def generate_key_in_room():
 
 generate_key_in_room()
 
+
+def parse(selection):
+    user_input = selection.split(" ")
+    return user_input
+
+
 print("-- Adventure Game ---------------------------------- \n")
 print(f"Welcome {player.name} \n\n")
 print(player.current_room)
 
 print("---------------------------------------------------- \n")
 print(player.current_room.get_possible_directions())
-print("[I] Check Inventory [C] Check Stats [R] Check Room  \n[P] Pickup Item  [D] Drop Item [Q] Quit Game")
+print("[I] Check Inventory [C] Check Stats [R] Check Room  \n[A] Take Action [Q] Quit Game")
 
 selection = input("-> ").upper()
 
-
 #
-# last mvp - user can enter multiple words, parser will perform correct action
+# last mvp - user can enter multiple words, parse will perform correct action
 #
-
-
-def parser(selection):
-    selection.split(" ")
-    return selection
 
 
 os.system('cls' if os.name == 'nt' else 'clear')
@@ -133,28 +133,29 @@ while not selection == "Q":
         print("-- Adventure Game ---------------------------------- \n")
         player.check_inventory()
 
-    elif selection == "P":
-        os.system('cls' if os.name == 'nt' else 'clear')
-        print("-- Adventure Game ---------------------------------- \n")
-        item_name = input("Pick up: ")
-        player.pickup(item_name)
-
     elif selection == "R":
         os.system('cls' if os.name == 'nt' else 'clear')
         print("-- Adventure Game ---------------------------------- \n")
         player.check_for_items()
 
-    elif selection == "D":
+    elif selection == "A":
         os.system('cls' if os.name == 'nt' else 'clear')
         print("-- Adventure Game ---------------------------------- \n")
-        item_name = input("Drop item: ")
-        player.drop(item_name)
+
+        # Actions
+        print("An action can include take, pickup, or drop")
+        action_input = parse(input("-> "))
+
+        if "drop" in action_input:
+            player.drop(action_input)
+        if ("pickup" or "take") in action_input:
+            player.pickup(action_input)
 
     elif selection == "Q":
         break
 
     else:
-        print(selection)
+        print("Invalid selection, please try again.")
     # if player input == "check room"
     # player2.check_for_items()
 
@@ -169,6 +170,6 @@ while not selection == "Q":
     # player2.check_stats()
     print("---------------------------------------------------- \n")
     print(player.current_room.get_possible_directions())
-    print("[I] Check Inventory [C] Check Stats [R] Check Room  \n[P] Pickup Item  [D] Drop Item [Q] Quit Game")
+    print("[I] Check Inventory [C] Check Stats [R] Check Room  \n[A] Take Action [Q] Quit Game")
     selection = input("-> ").upper()
     os.system('cls' if os.name == 'nt' else 'clear')

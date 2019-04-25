@@ -13,24 +13,37 @@ class Player:
         self.carry_weight = 0
         # if carry_weight exceeds carry_limit, prevent player movement
 
-    def pickup(self, item_name):
-        x = 0
+    def pickup(self, action_input):
+        z = 0
         if len(self.current_room.items) == 0:
             print("There are no items to pick up. \n")
         else:
-            for item in self.current_room.items:
-                if item.name == item_name.capitalize():
-                    self.inventory.append(item)
-                    self.current_room.items.remove(item)
-                    self.carry_weight += item.weight
-                    print(f"You pick up {item.name} \n")
-                    x = 1
-            if x == 0:
+            for i in action_input:
+                for x in self.current_room.items:
+                    if i.capitalize() == x.name:
+                        self.inventory.append(x)
+                        self.carry_weight += x.weight
+                        self.current_room.items.remove(x)
+                        print(f"You pick up {x.name} \n")
+                        z = 1
+            if z == 0:
                 print("The item you entered is not in this room. \n")
 
-    def drop(self, item):
-        # subtract item.weight from carry_weight
-        self.inventory.remove(item)
+    def drop(self, action_input):
+        z = 0
+        if len(self.inventory) == 0:
+            print("You have no items to drop. \n")
+        else:
+            for i in action_input:
+                for item in self.inventory:
+                    if i.capitalize() == item.name:
+                        self.inventory.remove(item)
+                        self.carry_weight -= item.weight
+                        self.current_room.items.append(item)
+                        print(f"You dropped {item.name} \n")
+                        z = 1
+            if z == 0:
+                print("The item you entered is not in this room. \n")
 
     def check_inventory(self):
         if len(self.inventory) == 0:
